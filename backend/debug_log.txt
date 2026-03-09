@@ -1,0 +1,390 @@
+[2026-01-08 23:07:26.003888] Error creating order: (MySQLdb.OperationalError) (1054, "Unknown column 'processing_at' in 'field list'")
+[SQL: INSERT INTO orders (user_id, order_date, status, processing_at, shipped_at, delivered_at, cancelled_at, subtotal_amount, discount_amount, shipping_fee, total_amount, payment_method, payment_status, paid_at, vnpay_response_code, vnpay_transaction_no, vnpay_bank_tran_no, paypal_order_id, paypal_capture_id, note, coupon_code, shipping_fullname, shipping_phone, shipping_address, shipping_city, shipping_email) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)]
+[parameters: (3, datetime.datetime(2026, 1, 8, 23, 7, 25, 998178), 'pending', None, None, None, None, 6750000.0, 0.0, 50000.0, 6800000.0, 'cod', 'unpaid', None, None, None, None, None, None, None, None, 'Nguyễn Văn Hải', '0763608216', '08 Hà Văn Tính', 'Đà Nẵng', 'vanhai@gmail.com')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Traceback (most recent call last):
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\MySQLdb\cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\MySQLdb\cursors.py", line 330, in _query
+    db.query(q)
+    ~~~~~~~~^^^
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\MySQLdb\connections.py", line 280, in query
+    _mysql.connection.query(self, query)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+MySQLdb.OperationalError: (1054, "Unknown column 'processing_at' in 'field list'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\app\routers\checkout_router.py", line 88, in create_order
+    db.flush()  # ensures order.id
+    ~~~~~~~~^^
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4331, in flush
+    self._flush(objects)
+    ~~~~~~~~~~~^^^^^^^^^
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4466, in _flush
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4427, in _flush
+    flush_context.execute()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 466, in execute
+    rec.execute(self)
+    ~~~~~~~~~~~^^^^^^
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.mapper,
+        ^^^^^^^^^^^^
+        uow.states_for_mapper_hierarchy(self.mapper, False, False),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        uow,
+        ^^^^
+    )
+    ^
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 93, in save_obj
+    _emit_insert_statements(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        base_mapper,
+        ^^^^^^^^^^^^
+    ...<3 lines>...
+        insert,
+        ^^^^^^^
+    )
+    ^
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1233, in _emit_insert_statements
+    result = connection.execute(
+        statement,
+        params,
+        execution_options=execution_options,
+    )
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\MySQLdb\cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\MySQLdb\cursors.py", line 330, in _query
+    db.query(q)
+    ~~~~~~~~^^^
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\MySQLdb\connections.py", line 280, in query
+    _mysql.connection.query(self, query)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (MySQLdb.OperationalError) (1054, "Unknown column 'processing_at' in 'field list'")
+[SQL: INSERT INTO orders (user_id, order_date, status, processing_at, shipped_at, delivered_at, cancelled_at, subtotal_amount, discount_amount, shipping_fee, total_amount, payment_method, payment_status, paid_at, vnpay_response_code, vnpay_transaction_no, vnpay_bank_tran_no, paypal_order_id, paypal_capture_id, note, coupon_code, shipping_fullname, shipping_phone, shipping_address, shipping_city, shipping_email) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)]
+[parameters: (3, datetime.datetime(2026, 1, 8, 23, 7, 25, 998178), 'pending', None, None, None, None, 6750000.0, 0.0, 50000.0, 6800000.0, 'cod', 'unpaid', None, None, None, None, None, None, None, None, 'Nguyễn Văn Hải', '0763608216', '08 Hà Văn Tính', 'Đà Nẵng', 'vanhai@gmail.com')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+
+[2026-01-08 23:07:29.122638] Error creating order: (MySQLdb.OperationalError) (1054, "Unknown column 'processing_at' in 'field list'")
+[SQL: INSERT INTO orders (user_id, order_date, status, processing_at, shipped_at, delivered_at, cancelled_at, subtotal_amount, discount_amount, shipping_fee, total_amount, payment_method, payment_status, paid_at, vnpay_response_code, vnpay_transaction_no, vnpay_bank_tran_no, paypal_order_id, paypal_capture_id, note, coupon_code, shipping_fullname, shipping_phone, shipping_address, shipping_city, shipping_email) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)]
+[parameters: (3, datetime.datetime(2026, 1, 8, 23, 7, 29, 117860), 'pending', None, None, None, None, 6750000.0, 0.0, 50000.0, 6800000.0, 'cod', 'unpaid', None, None, None, None, None, None, None, None, 'Nguyễn Văn Hải', '0763608216', '08 Hà Văn Tính', 'Đà Nẵng', 'vanhai@gmail.com')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Traceback (most recent call last):
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\MySQLdb\cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\MySQLdb\cursors.py", line 330, in _query
+    db.query(q)
+    ~~~~~~~~^^^
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\MySQLdb\connections.py", line 280, in query
+    _mysql.connection.query(self, query)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+MySQLdb.OperationalError: (1054, "Unknown column 'processing_at' in 'field list'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\app\routers\checkout_router.py", line 88, in create_order
+    db.flush()  # ensures order.id
+    ~~~~~~~~^^
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4331, in flush
+    self._flush(objects)
+    ~~~~~~~~~~~^^^^^^^^^
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4466, in _flush
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4427, in _flush
+    flush_context.execute()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 466, in execute
+    rec.execute(self)
+    ~~~~~~~~~~~^^^^^^
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.mapper,
+        ^^^^^^^^^^^^
+        uow.states_for_mapper_hierarchy(self.mapper, False, False),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        uow,
+        ^^^^
+    )
+    ^
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 93, in save_obj
+    _emit_insert_statements(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        base_mapper,
+        ^^^^^^^^^^^^
+    ...<3 lines>...
+        insert,
+        ^^^^^^^
+    )
+    ^
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1233, in _emit_insert_statements
+    result = connection.execute(
+        statement,
+        params,
+        execution_options=execution_options,
+    )
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\MySQLdb\cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\MySQLdb\cursors.py", line 330, in _query
+    db.query(q)
+    ~~~~~~~~^^^
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\MySQLdb\connections.py", line 280, in query
+    _mysql.connection.query(self, query)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (MySQLdb.OperationalError) (1054, "Unknown column 'processing_at' in 'field list'")
+[SQL: INSERT INTO orders (user_id, order_date, status, processing_at, shipped_at, delivered_at, cancelled_at, subtotal_amount, discount_amount, shipping_fee, total_amount, payment_method, payment_status, paid_at, vnpay_response_code, vnpay_transaction_no, vnpay_bank_tran_no, paypal_order_id, paypal_capture_id, note, coupon_code, shipping_fullname, shipping_phone, shipping_address, shipping_city, shipping_email) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)]
+[parameters: (3, datetime.datetime(2026, 1, 8, 23, 7, 29, 117860), 'pending', None, None, None, None, 6750000.0, 0.0, 50000.0, 6800000.0, 'cod', 'unpaid', None, None, None, None, None, None, None, None, 'Nguyễn Văn Hải', '0763608216', '08 Hà Văn Tính', 'Đà Nẵng', 'vanhai@gmail.com')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+
+[2026-01-08 23:07:29.577191] Error creating order: (MySQLdb.OperationalError) (1054, "Unknown column 'processing_at' in 'field list'")
+[SQL: INSERT INTO orders (user_id, order_date, status, processing_at, shipped_at, delivered_at, cancelled_at, subtotal_amount, discount_amount, shipping_fee, total_amount, payment_method, payment_status, paid_at, vnpay_response_code, vnpay_transaction_no, vnpay_bank_tran_no, paypal_order_id, paypal_capture_id, note, coupon_code, shipping_fullname, shipping_phone, shipping_address, shipping_city, shipping_email) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)]
+[parameters: (3, datetime.datetime(2026, 1, 8, 23, 7, 29, 573035), 'pending', None, None, None, None, 6750000.0, 0.0, 50000.0, 6800000.0, 'cod', 'unpaid', None, None, None, None, None, None, None, None, 'Nguyễn Văn Hải', '0763608216', '08 Hà Văn Tính', 'Đà Nẵng', 'vanhai@gmail.com')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Traceback (most recent call last):
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\MySQLdb\cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\MySQLdb\cursors.py", line 330, in _query
+    db.query(q)
+    ~~~~~~~~^^^
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\MySQLdb\connections.py", line 280, in query
+    _mysql.connection.query(self, query)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+MySQLdb.OperationalError: (1054, "Unknown column 'processing_at' in 'field list'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\app\routers\checkout_router.py", line 88, in create_order
+    db.flush()  # ensures order.id
+    ~~~~~~~~^^
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4331, in flush
+    self._flush(objects)
+    ~~~~~~~~~~~^^^^^^^^^
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4466, in _flush
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4427, in _flush
+    flush_context.execute()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 466, in execute
+    rec.execute(self)
+    ~~~~~~~~~~~^^^^^^
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.mapper,
+        ^^^^^^^^^^^^
+        uow.states_for_mapper_hierarchy(self.mapper, False, False),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        uow,
+        ^^^^
+    )
+    ^
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 93, in save_obj
+    _emit_insert_statements(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        base_mapper,
+        ^^^^^^^^^^^^
+    ...<3 lines>...
+        insert,
+        ^^^^^^^
+    )
+    ^
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1233, in _emit_insert_statements
+    result = connection.execute(
+        statement,
+        params,
+        execution_options=execution_options,
+    )
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\MySQLdb\cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\MySQLdb\cursors.py", line 330, in _query
+    db.query(q)
+    ~~~~~~~~^^^
+  File "D:\HKI_nam4\TTCM_CNM\DoAn\FurnitureWebsite\backend\venv\Lib\site-packages\MySQLdb\connections.py", line 280, in query
+    _mysql.connection.query(self, query)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (MySQLdb.OperationalError) (1054, "Unknown column 'processing_at' in 'field list'")
+[SQL: INSERT INTO orders (user_id, order_date, status, processing_at, shipped_at, delivered_at, cancelled_at, subtotal_amount, discount_amount, shipping_fee, total_amount, payment_method, payment_status, paid_at, vnpay_response_code, vnpay_transaction_no, vnpay_bank_tran_no, paypal_order_id, paypal_capture_id, note, coupon_code, shipping_fullname, shipping_phone, shipping_address, shipping_city, shipping_email) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)]
+[parameters: (3, datetime.datetime(2026, 1, 8, 23, 7, 29, 573035), 'pending', None, None, None, None, 6750000.0, 0.0, 50000.0, 6800000.0, 'cod', 'unpaid', None, None, None, None, None, None, None, None, 'Nguyễn Văn Hải', '0763608216', '08 Hà Văn Tính', 'Đà Nẵng', 'vanhai@gmail.com')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+

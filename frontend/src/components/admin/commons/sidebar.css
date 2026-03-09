@@ -1,0 +1,62 @@
+/* Sidebar Styles */
+.ps-sidebar-container {
+  background-color: #2d3748 !important;
+  color: #e2e8f0 !important;
+  height: 100%;
+}
+
+.ps-menu-button {
+  color: #cbd5e0 !important;
+  padding: 8px 20px !important;
+}
+
+.ps-menu-button:hover {
+  color: white !important;
+  background-color: rgba(102, 126, 234, 0.2) !important;
+}
+
+.ps-menu-button.ps-active {
+  color: white !important;
+  background-color: rgba(102, 126, 234, 0.3) !important;
+}
+
+.ps-submenu-content {
+  background-color: rgba(0, 0, 0, 0.2) !important;
+}
+
+.ps-menu-icon {
+  color: #cbd5e0 !important;
+  margin-right: 10px !important;
+}
+
+.ps-menu-button:hover .ps-menu-icon {
+  color: white !important;
+}
+
+/* NavLink active state */
+a.active .ps-menu-button {
+  color: white !important;
+  background-color: rgba(102, 126, 234, 0.3) !important;
+}
+
+.badge {
+  padding: 3px 6px;
+  font-size: 9px;
+  letter-spacing: 1px;
+  border-radius: 15px;
+}
+
+.badge.red {
+  color: #ffffff;
+  background: #d63030;
+}
+
+.badge.gray {
+  color: #ffffff;
+  background: #777777;
+}
+
+.badge.yellow {
+  color: #000000;
+  background: #ffd331;
+}

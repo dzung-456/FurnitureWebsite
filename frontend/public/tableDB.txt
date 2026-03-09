@@ -1,0 +1,146 @@
+Dựa trên phân tích giao diện Frontend (FurnitureWebsite), dưới đây là thiết kế Database đề xuất với các bảng và thuộc tính cần thiết:
+
+### 1. Users (Người dùng) - Từ Login/Register/Checkout
+Lưu thông tin tài khoản người dùng và khách hàng.
+- **user_id** (PK): INT, Auto Increment
+- **username**: VARCHAR(50) - Tên đăng nhập
+- **password_hash**: VARCHAR(255) - Mật khẩu mã hóa
+- **email**: VARCHAR(100) - Email (Unique)
+- **full_name**: VARCHAR(100) - Họ tên đầy đủ (từ Register hoặc Checkout)
+- **phone**: VARCHAR(20) - Số điện thoại
+- **role**: ENUM('customer', 'admin') - Phân quyền
+- **avatar**: VARCHAR(255) - Đường dẫn ảnh đại diện
+- **created_at**: DATETIME - Ngày tạo
+- **updated_at**: DATETIME - Ngày cập nhật cuối
+- **deleted_at**: DATETIME (Nullable) - Ngày xóa mềm (nếu có)
+- **status**: ENUM('active', 'banned') - Trạng thái tài khoản
+
+### 2. Categories (Danh mục sản phẩm)
+Phân loại sản phẩm (ví dụ: Sofa, Chair, Accessories...).
+- **category_id** (PK): INT, Auto Increment
+- **name**: VARCHAR(100) - Tên danh mục (e.g., "Living Room", "Sofa")
+- **description**: TEXT - Mô tả danh mục
+- **parent_id**: INT (Nullable) - Để tạo danh mục con (Sub-category) nếu cần
+- **slug**: VARCHAR(100) - URL thân thiện
+
+### 3. Products (Sản phẩm) - Từ ProductList/ProductDetail
+- **product_id** (PK): INT, Auto Increment
+- **category_id** (FK): INT - Liên kết bảng Categories
+- **name**: VARCHAR(200) - Tên sản phẩm (e.g., "Alexander Sofa")
+- **short_description**: TEXT - Mô tả ngắn (hiển thị ở thẻ sản phẩm)
+- **description**: LONGTEXT - Mô tả chi tiết (trang chi tiết)
+- **price**: DECIMAL(10, 2) - Giá gốc (e.g., 15.000)
+- **sale_price**: DECIMAL(10, 2) (Nullable) - Giá khuyến mãi (e.g., 12.000)
+- **stock_quantity**: INT - Số lượng tồn kho
+- **sku**: VARCHAR(50) - Mã sản phẩm
+- **average_rating**: DECIMAL(3, 2) - Điểm đánh giá trung bình
+- **created_at**: DATETIME
+- **updated_at**: DATETIME - Ngày cập nhật cuối
+- **deleted_at**: DATETIME (Nullable) - Ngày xóa mềm (nếu có)
+- **tags**: VARCHAR(255) - Thẻ sản phẩm (e.g., "Trending", "New")
+
+### 4. Product_Images (Ảnh sản phẩm)
+Một sản phẩm có nhiều ảnh.
+- **image_id** (PK): INT
+- **product_id** (FK): INT
+- **image_url**: VARCHAR(255) - Đường dẫn ảnh
+- **is_primary**: BOOLEAN - Đánh dấu ảnh đại diện chính
+
+### 5. Orders (Đơn hàng) - Từ Checkout
+- **order_id** (PK): INT
+- **user_id** (FK): INT (Nullable - nếu cho phép mua không cần đăng nhập)
+- **order_date**: DATETIME
+- **status**: ENUM('pending', 'processing', 'shipped', 'delivered', 'cancelled')
+- **total_amount**: DECIMAL(10, 2) - Tổng tiền đơn hàng
+- **shipping_fee**: DECIMAL(10, 2)
+- **payment_method**: ENUM('cod', 'bank_transfer', 'paypal') - Phương thức thanh toán
+- **note**: TEXT - Ghi chú đơn hàng
+# Thông tin giao hàng (Lưu snapshot tại thời điểm đặt hàng)
+- **shipping_fullname**: VARCHAR(100)
+- **shipping_phone**: VARCHAR(20)
+- **shipping_address**: VARCHAR(255)
+- **shipping_city**: VARCHAR(100)
+- **shipping_email**: VARCHAR(100)
+
+### 6. Order_Items (Chi tiết đơn hàng)
+- **order_item_id** (PK): INT
+- **order_id** (FK): INT
+- **product_id** (FK): INT
+- **quantity**: INT - Số lượng mua
+- **price**: DECIMAL(10, 2) - Giá tại thời điểm mua (để cố định lịch sử giá)
+
+### 7. Reviews (Đánh giá) - Từ Product Detail
+- **review_id** (PK): INT
+- **product_id** (FK): INT
+- **user_id** (FK): INT
+- **rating**: INT (1-5) - Số sao
+- **comment**: TEXT - Nội dung đánh giá
+- **created_at**: DATETIME
+
+### 8. Cart (Giỏ hàng)
+Dùng để lưu giỏ hàng của user đã đăng nhập (nếu không dùng LocalStorage thuần túy).
+- **cart_id** (PK): INT
+- **user_id** (FK): INT
+
+### 9. Cart_Items (Sản phẩm trong giỏ)
+- **cart_item_id** (PK): INT
+- **cart_id** (FK): INT
+- **product_id** (FK): INT
+- **quantity**: INT
+
+### 10. Wishlist (Yêu thích) - Từ WishListPage
+- **wishlist_id** (PK): INT
+- **user_id** (FK): INT
+- **product_id** (FK): INT
+- **created_at**: DATETIME
+
+### 11. Blog_Categories (Danh mục bài viết)
+- **blog_category_id** (PK): INT, Auto Increment
+- **name**: VARCHAR(100)
+- **description**: TEXT
+
+### 12. Blogs (Bài viết) - Từ BlogList/Detail
+- **blog_id** (PK): INT
+- **title**: VARCHAR(255)
+- **content**: LONGTEXT
+- **thumbnail**: VARCHAR(255)
+- **user_id** (FK): INT (Admin)
+- **created_at**: DATETIME
+- **updated_at**: DATETIME - Ngày cập nhật cuối
+- **deleted_at**: DATETIME (Nullable) - Ngày xóa mềm (nếu có)
+- **blog_category_id** (FK): INT - Liên kết bảng Blog_Categories
+
+# 15. Blog_Tags (Thẻ bài viết)
+Dùng để gắn nhiều tag cho 1 bài viết (nhiều-nhiều).
+- **tag_id** (PK): INT, Auto Increment
+- **name**: VARCHAR(50) - Tên tag (e.g., "Design", "Tips")
+- **slug**: VARCHAR(50) - URL thân thiện
+
+# 16. Blog_Tag_Map (Liên kết Blog và Tag)
+Bảng trung gian để liên kết nhiều-nhiều giữa Blogs và Blog_Tags.
+- **blog_id** (FK): INT
+- **tag_id** (FK): INT
+
+### 13. Product_Attributes (Thông tin bổ sung) - Từ Product Tab
+Lưu các thông tin động như Weight, Dimensions, Brand, Color, Size,...
+- **attribute_id** (PK): INT
+- **product_id** (FK): INT
+- **name**: VARCHAR(50) - Tên thuộc tính (e.g., "Weight", "Dimensions", "Material")
+- **value**: VARCHAR(255) - Giá trị (e.g., "2 lbs", "12 x 16 x 19 in")
+
+### 14. Coupons (Mã giảm giá) - Từ Cart Page
+- **coupon_id** (PK): INT
+- **code**: VARCHAR(50) (e.g., "SUMMER2024")
+- **discount_type**: ENUM('percent', 'fixed')
+- **discount_value**: DECIMAL(10, 2)
+- **expiry_date**: DATE
+- **min_order_value**: DECIMAL(10, 2) - Giá trị đơn hàng tối thiểu để áp dụng
+
+---
+**Ghi chú quan hệ:**
+- 1 User có nhiều Orders, Reviews, Wishlist Items.
+- 1 Product thuộc 1 Category, có nhiều Images, Reviews, Product Attributes, OrderDetails.
+- 1 Order có nhiều OrderDetails.
+- 1 Blog thuộc 1 Blog Category.
+- 1 Blog có nhiều Tags (nhiều-nhiều qua Blog_Tag_Map).
+- 1 Tag có thể gắn cho nhiều Blog.
